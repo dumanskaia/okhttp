@@ -71,6 +71,9 @@ kotlin {
         implementation(libs.guava.jre)
       }
     }
+    all {
+      languageSettings.languageVersion = rootProject.property("kotlin_language_version") as String
+    }
   }
 }
 

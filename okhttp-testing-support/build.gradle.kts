@@ -47,6 +47,9 @@ kotlin {
         compileOnly(libs.robolectric.android)
       }
     }
+    all {
+      languageSettings.languageVersion = rootProject.property("kotlin_language_version") as String
+    }
   }
 }
 

@@ -12,11 +12,16 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.animalsniffer.AnimalSnifferExtension
 
+plugins {
+  kotlin("multiplatform") version rootProject.property("kotlin_version") as String
+  kotlin("plugin.serialization") version rootProject.property("kotlin_version") as String
+}
+
 buildscript {
   dependencies {
     classpath(libs.gradlePlugin.dokka)
-    classpath(libs.gradlePlugin.kotlin)
-    classpath(libs.gradlePlugin.kotlinSerialization)
+//    classpath(libs.gradlePlugin.kotlin)
+//    classpath(libs.gradlePlugin.kotlinSerialization)
     classpath(libs.gradlePlugin.androidJunit5)
     classpath(libs.gradlePlugin.android)
     classpath(libs.gradlePlugin.graal)
@@ -33,6 +38,7 @@ buildscript {
     mavenCentral()
     gradlePluginPortal()
     google()
+    maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev") }
   }
 }
 
@@ -45,6 +51,7 @@ allprojects {
   repositories {
     mavenCentral()
     google()
+    maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev") }
   }
 
   tasks.create("downloadDependencies") {
@@ -320,4 +327,12 @@ subprojects {
 
 tasks.wrapper {
   distributionType = Wrapper.DistributionType.ALL
+}
+
+allprojects {
+  tasks.withType(KotlinCompile::class).all {
+    kotlinOptions {
+      languageVersion = rootProject.property("kotlin_language_version") as String
+    }
+  }
 }

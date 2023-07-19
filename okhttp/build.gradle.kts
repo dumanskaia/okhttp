@@ -152,6 +152,9 @@ kotlin {
         }
       }
     }
+    all {
+      languageSettings.languageVersion = rootProject.property("kotlin_language_version") as String
+    }
   }
 }
 

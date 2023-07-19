@@ -1,3 +1,11 @@
+pluginManagement {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+    google()
+    maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev") }
+  }
+}
 rootProject.name = "okhttp-parent"
 
 include(":mockwebserver")
